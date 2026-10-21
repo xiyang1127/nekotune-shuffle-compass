@@ -2,3 +2,4 @@
 /.nekotune-sdk/
 /dist/
 *.user
+__pycache__/
