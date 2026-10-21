@@ -17,7 +17,7 @@ NekoTune 原生随机算法扩展，提供与二维偏好图对应的控制界�
 
 ## 安装和使用
 
-将构建生成的 `nekotune.shuffle-compass-<版本>-<平台>.nekotune.zip` 导入宿主的扩展管理页，
+将 Release 中的 `nekotune.shuffle-compass-<版本>-linux.zip` 或 `windows.zip` 导入宿主的扩展管理页，
 信任并启用。在队列页或队列抽屉的播放模式菜单选择“随机 → 漫游罗盘”，
 再点击同一菜单中的“调整随机算法…”，控制盘在播放模式按钮附近弹出，不占用侧栏。
 也可从“设置 → 扩展设置 → 随机选曲偏好”进入。
@@ -73,11 +73,10 @@ uv run --no-project tests/smoke_host.py \
 
 `.github/workflows/ci.yml` 使用仓库内 SDK 快照，分别在 Arch Linux 与 Windows UCRT64
 构建、测试和打包，规范产物保存为 Actions artifacts，版本标签触发完整校验与草稿 Release。滚动发行版的工具链可能发生变化，
-每个产物附带同名前缀的 `.build-info.json` 记录 Qt、编译器、系统与提交版本；下载前须与宿主工具链匹配。
+构建时校验 Qt 与编译器环境并记录到 CI 日志，不上传 JSON 附件；下载前须确认与宿主工具链匹配。
 CI 通过不代表已在所有宿主上完成加载验证。
 
-发行说明见 [CHANGELOG.md](CHANGELOG.md)。发布时根据已验证的平台上传 ZIP、SHA-256
-及构建信息，并明确预览状态和宿主要求；源码归档包含复现构建所需的 SDK 快照。
+发行说明见 [CHANGELOG.md](CHANGELOG.md)。发布时根据已验证的平台上传 ZIP 和 SHA-256 校验文件，并明确预览状态和宿主要求；源码归档包含复现构建所需的 SDK 快照。
 
 
-安装包、构建信息及校验文件的统一命名与复现命令见 [发布规范](RELEASING.md)。本次更新见 [发行说明](RELEASE_NOTES.md)。
+安装包及校验文件的统一命名与复现命令见 [发布规范](RELEASING.md)。本次更新见 [发行说明](RELEASE_NOTES.md)。
