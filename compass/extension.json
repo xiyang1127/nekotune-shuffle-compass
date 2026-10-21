@@ -1,0 +1,16 @@
+{
+  "id": "nekotune.shuffle-compass",
+  "name": "漫游罗盘 · Shuffle Compass",
+  "description": "用二维偏好控制随机选曲：少听与常听，风格相似与跳跃。需要支持 SDK 2.1 随机算法的宿主。",
+  "version": "1.0.0",
+  "apiVersion": 2,
+  "config": { "frequency": 0, "variety": 0 },
+  "contributes": {
+    "settings": [{
+      "id": "preferences",
+      "title": { "zh": "随机选曲偏好", "en": "Shuffle preferences" },
+      "shuffleStrategy": "compass",
+      "source": "qml/Page.qml"
+    }]
+  }
+}
