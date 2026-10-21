@@ -107,4 +107,4 @@ jobs:
         run: |
           set -euo pipefail
           gh release create "$TAG" dist/* --verify-tag --title "$RELEASE_NAME $TAG" \
-            --notes-file RELEASE_NOTES.md --generate-notes --draft --prerelease
+            --notes-file RELEASE_NOTES.md --generate-notes --draft
