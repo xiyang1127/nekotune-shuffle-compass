@@ -24,14 +24,9 @@ class PluginTest final : public QObject {
         const auto data = QJsonDocument::fromJson(manifest.readAll()).object();
         QCOMPARE(data.value("qt").toString(), QStringLiteral("%1.%2").arg(QT_VERSION_MAJOR).arg(QT_VERSION_MINOR));
     }
-    void optionalCapabilityAndLifecycle() {
-        FakeContext oldHost;
+    void lifecycle() {
         std::optional<Result<void>> result;
-        m_plugin->activate(oldHost, [&](Result<void> value) { result = value; });
-        QVERIFY(result && !*result);
-        QVERIFY(result->error().message.contains("SDK 2.1"));
-        m_plugin->deactivate();
-        ShuffleContext context;
+        FakeContext context;
         for (int i = 0; i < 2; ++i) {
             m_plugin->activate(context, [&](Result<void> value) { result = value; });
             QVERIFY(result && *result);
@@ -39,12 +34,12 @@ class PluginTest final : public QObject {
             QVERIFY(context.call("settings"));
             m_plugin->deactivate();
             QVERIFY(!context.provider);
-            QVERIFY(context.services.isEmpty());
+            QVERIFY(context.serviceHandlers.isEmpty());
             QVERIFY(context.listeners.empty());
         }
     }
     void settingsSaveValidationAndInvalidation() {
-        ShuffleContext context;
+        FakeContext context;
         bool activated = false;
         m_plugin->activate(context, [&](Result<void> value) { activated = bool(value); });
         QVERIFY(activated);
@@ -72,7 +67,7 @@ class PluginTest final : public QObject {
         m_plugin->deactivate();
     }
     void enableUsesHostAndPropagatesFailures() {
-        ShuffleContext context;
+        FakeContext context;
         m_plugin->activate(context, [](Result<void>) {});
         QVERIFY(context.call("activate"));
         QCOMPARE(context.hostCalls, QStringList({"player.set_shuffle_strategy", "player.set_playback_mode"}));

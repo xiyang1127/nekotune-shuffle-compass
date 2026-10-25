@@ -1,10 +1,8 @@
-本次为发布规范维护版本，插件功能和设置不变。
+迁移到 NekoTune SDK 3，沿用既有随机选曲规则和已保存的二维偏好。
 
-- 原生安装包统一为 `<插件ID>-<版本>-linux.zip` / `windows.zip`；平台无关主题使用 `<插件ID>-<版本>.zip`。
-- 下载附件只保留安装包和 `SHA256SUMS.txt`，不再提供 JSON 构建信息附件。
-- `SHA256SUMS.txt` 覆盖所有 ZIP，构建环境在 CI 中校验并记录。
-- 发布前自动校验标签、清单版本、ZIP 结构和平台完整性。
+- 使用 `org.nekotune.IExtensionPlugin/3` 与 `context.shuffle()` 注册算法。
+- 同步 SDK 3.0.0 接口，保留 `frequency`、`variety` 设置。
 
-安装：下载对应系统的 ZIP，在 NekoTune「扩展」中导入。`SHA256SUMS.txt` 无需导入。
+安装：下载对应系统的 ZIP，在 NekoTune「扩展」中导入并确认信任。`SHA256SUMS.txt` 用于校验，无需导入。
 
-兼容性：需要包含 SDK 2.1 `IShuffleExtensionContext` 和随机算法设置入口的开发版宿主。公开的 NekoTune v1.2.0 不具备此接口。Linux 使用 Arch Linux 工具链，Windows 使用 MSYS2 UCRT64；Qt 小版本和编译器 ABI 必须与宿主匹配。本版本仍属于开发接口预览。
+兼容性：需要 NekoTune v2.0.0 或更新的兼容 SDK 3 宿主，SDK 2.x 宿主无法加载。Linux 使用 Ubuntu 24.04 / GCC 13 / Qt 6.11.2；Windows 使用 MSYS2 UCRT64。原生插件的 Qt 小版本与编译器 ABI 必须和宿主兼容。

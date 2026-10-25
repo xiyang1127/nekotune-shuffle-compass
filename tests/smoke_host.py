@@ -93,12 +93,13 @@ def smoke(host: Path, package: Path) -> None:
                     assert call("player.status")["effective_shuffle_strategy"] == strategy
                     call("extensions.reload", {"id": owner})
                     assert call("player.status")["effective_shuffle_strategy"] == strategy
-                    entries = call("extensions.list")["extensions"]
-                    entry = next(item for item in entries if item["id"] == owner)
+                    snapshot = call("extensions.list")
+                    entry = next(item for item in snapshot["extensions"] if item["id"] == owner)
                     assert entry["state"] == "running"
-                    assert not entry["contributes"].get("pages")
-                    assert entry["contributes"]["settings"][0]["shuffleStrategy"] == "compass"
-                    assert entry["contributes"]["settings"][0]["source"].endswith("qml/Page.qml")
+                    owned = lambda kind: [item for item in snapshot["contributions"][kind] if item["extensionId"] == owner]
+                    assert not owned("pages")
+                    assert owned("settings")[0]["shuffleStrategy"] == "compass"
+                    assert owned("settings")[0]["source"].endswith("qml/Page.qml")
                     print("Real-host ZIP install, UI contributions, settings, navigation, fallback, re-enable and reload passed")
             finally:
                 process.terminate()

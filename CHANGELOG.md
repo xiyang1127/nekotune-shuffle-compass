@@ -1,5 +1,11 @@
 # 发行记录
 
+## 2.0.0
+
+- 迁移到 NekoTune SDK 3：插件 IID 升为 `org.nekotune.IExtensionPlugin/3`，清单 `apiVersion: 3`；随机算法通过 `context.shuffle()` 注册，不再探测可选接口。
+- 内置 SDK 快照更新为 SDK 3.0.0；真实宿主验收脚本改读按用途分组的 `extensions.list`。
+- 插件功能、设置格式与选曲规则不变；SDK 2.x 宿主无法加载此版本。
+
 ## 1.0.1
 
 - 统一短文件名 ZIP 和 SHA-256 校验文件规范，移除 JSON 下载附件；补齐标签自动发布流程。

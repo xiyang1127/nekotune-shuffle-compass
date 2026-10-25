@@ -8,11 +8,11 @@ NekoTune 原生随机算法扩展，提供与二维偏好图对应的控制界�
 - “完成”保存后关闭弹层，“取消”丢弃草稿并关闭；保存失败保留草稿。
 - 背景、文字、网格、按钮与控制点使用宿主主题色，随明暗主题和强调色实时更新。
 
-需要支持 **NekoTune SDK 2.1 随机算法接口**的宿主。旧宿主会收到清晰的激活错误。
+需要支持 **NekoTune SDK 3**（插件接口 `org.nekotune.IExtensionPlugin/3`）的宿主。旧宿主会拒绝加载并在管理页提示接口不匹配。
 源码与下载：[xiyang1127/nekotune-shuffle-compass](https://github.com/xiyang1127/nekotune-shuffle-compass)。
 
-**当前版本仍为开发接口预览版**：目前公开的 NekoTune v1.2.0 发行包尚未提供随机算法接口，
-不能仅按宿主版本号判断兼容性。需要包含 SDK 2.1 `IShuffleExtensionContext` 及播放模式菜单设置入口的开发版宿主。
+**当前版本仍为开发接口预览版**：目前公开的 NekoTune v1.2.0 发行包不支持 SDK 3，
+不能仅按宿主版本号判断兼容性。需要提供 SDK 3 及播放模式菜单设置入口的开发版宿主。
 原生安装包还要求与宿主匹配的 Qt 小版本、编译器 ABI 和运行库；详见对应 Release。
 
 ## 安装和使用
@@ -42,7 +42,7 @@ NekoTune 原生随机算法扩展，提供与二维偏好图对应的控制界�
 ## 本地构建
 
 Qt、编译器必须与目标宿主匹配；默认只依赖 Qt Core，测试另需 Qt Test、QuickTest、
-QuickControls2。仓库携带 SDK 2.1 预览源码快照，无需额外下载 SDK 即可构建：
+QuickControls2。仓库携带 SDK 3 源码快照，无需额外下载 SDK 即可构建：
 
 ```sh
 cmake -S . -B ../../build/shuffle-compass -G Ninja \
@@ -51,7 +51,7 @@ cmake --build ../../build/shuffle-compass --parallel 2
 ctest --test-dir ../../build/shuffle-compass --output-on-failure
 ```
 
-也可用 `-DCMAKE_PREFIX_PATH=/path/to/sdk` 指定已安装的 SDK 2.1，
+也可用 `-DCMAKE_PREFIX_PATH=/path/to/sdk` 指定已安装的 SDK 3，
 或用 `-DNEKOTUNE_SDK_SOURCE_DIR=/path/to/NekoTune/sdk` 指定目标宿主的 SDK 源码。
 输出目录 `extensions/nekotune.shuffle-compass/` 可在宿主挂载开发；ZIP 位于 `packages/`。
 生产打包需使用与目标宿主一致的工具链；本机生成的包不保证能在旧发行版运行。

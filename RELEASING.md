@@ -27,9 +27,9 @@ uv run --no-project --python 3.12 scripts/release.py prepare --manifest compass/
 
 ```sh
 uv run --no-project --python 3.12 scripts/release.py finalize \
-  --manifest compass/extension.json --output dist --platforms linux-x86_64 windows-x86_64 --tag v1.0.1
+  --manifest compass/extension.json --output dist --platforms linux-x86_64 windows-x86_64 --tag v2.0.0
 uv run --no-project --python 3.12 scripts/release.py verify \
-  --manifest compass/extension.json --output dist --platforms linux-x86_64 windows-x86_64 --tag v1.0.1
+  --manifest compass/extension.json --output dist --platforms linux-x86_64 windows-x86_64 --tag v2.0.0
 cd dist
 sha256sum -c SHA256SUMS.txt
 ```
@@ -38,4 +38,4 @@ sha256sum -c SHA256SUMS.txt
 维护者核对附件、兼容性说明和校验结果后公开发布。校验文件只覆盖 ZIP，不包含自身。
 缺平台、旧版本、重复文件和额外附件（包括 JSON）会阻止发布。
 
-漫游罗盘使用正式 Release，公开发布时设为 Latest；兼容性仍要求包含 SDK 2.1 随机算法接口的开发版宿主。
+漫游罗盘使用正式 Release，公开发布时设为 Latest；兼容性要求NekoTune v2.0.0 或更新的兼容 SDK 3 宿主。
